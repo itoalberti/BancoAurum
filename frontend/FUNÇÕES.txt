@@ -1,0 +1,15 @@
+AGÊNCIA
+    cadastrar   OK
+    alterar     OK   
+    excluir     OK
+    consultar   OK
+USUÁRIO
+    cadastrar   OK
+    alterar     OK
+    excluir     OK
+    consultar   OK
+PRODUTO
+    cadastrar
+    alterar
+    excluir
+    consultar
