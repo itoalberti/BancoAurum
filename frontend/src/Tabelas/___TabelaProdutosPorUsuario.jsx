@@ -1,13 +1,22 @@
 import { Button, Table } from 'react-bootstrap';
-import Icone from '../Templates/Icones';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Icone from '../Templates/Icones';
 
-const urlUsuario = 'http://localhost:4000/usuario';
+const urlProduto = 'http://localhost:4000/produto';
 
 export default function TabelaProdutosPorUsuario(props) {
   const [listaProdutos, setListaProdutos] = useState([]);
-  useEffect();
+  useEffect(() => {
+    fetch(urlProduto)
+      .then((resp) => resp.json())
+      .then((data) => {
+        setListaProdutos(data);
+      })
+      .catch((erro) => console.error('Erro ao buscar produtos', erro));
+  }, []);
 
+  let navigate = useNavigate();
   // function excluirAssociacaoAProduto(props) {
   //   fetch(urlUsuario, {
   //     method: 'DELETE',
@@ -23,26 +32,14 @@ export default function TabelaProdutosPorUsuario(props) {
 
   return (
     <div>
+      <h2>Produtos do cliente: {props.usuario.usu_nome}</h2>
       {/* Cria tabela com a lista de produtos com os botões para alterar e excluir um produto */}
       <Table striped bordered hover style={{ fontSize: '13px' }}>
         <thead>
           <tr>
-            <th>Código.</th>
+            <th>Código</th>
             <th>Tipo</th>
             <th>Nome</th>
-            <th>CPF</th>
-            <th>RG</th>
-            <th>Gênero</th>
-            <th>Telefone</th>
-            <th>Data de Nasc.</th>
-            <th>CEP</th>
-            <th>Endereço</th>
-            <th>Cidade</th>
-            <th>UF</th>
-            <th>E-mail</th>
-            <th>Senha</th>
-            <th>N° Ag.</th>
-            <th>Cidade Ag.</th>
             <th>Ações</th>
           </tr>
         </thead>

@@ -10,6 +10,10 @@ VALUES ('Administrador', 'Rafael Silva Damacena', '466.556.268-70', '58.377.857-
        ('Administrador', 'Maurício Sanches Alberti', '370.759.228-66', '45.794.891-7', 'Masculino', '(18) 98195-4446', '1989-03-15',
         '19013-030', 'Rua Siqueira Campos, 1345, Vila Roberto', 'Presidente Prudente', 'SP', 'itoalberti@gmail.com', 'admin', '2')
 
+INSERT INTO usuario_produto (`usu_codigo`, `pro_codigo`, `data_contratacao`, `saldo`, `valor_final`)
+VALUES (5, 1, '2002-03-05', 5000, 4999),
+       (5, 2, '2002-02-04', 250, 251);
+
 ------- TABELAS -------
 CREATE TABLE Agencia(
     ag_codigo INT PRIMARY KEY AUTO_INCREMENT,

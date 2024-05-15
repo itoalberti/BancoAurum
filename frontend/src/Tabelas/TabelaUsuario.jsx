@@ -1,10 +1,12 @@
 import { Button, Table } from 'react-bootstrap';
 import { useState } from 'react';
 import Icone from '../Templates/Icones';
+import { useNavigate } from 'react-router-dom';
 
 export default function TabelaUsuario(props) {
   // Inicializa o estado de mostrar a senha
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  let navigate = useNavigate();
 
   // Altere o estado quando o botão for clicado
   const mudarMostrarSenha = (codigo) => {
@@ -60,6 +62,7 @@ export default function TabelaUsuario(props) {
                 <td>{usuario.agencia.numero}</td>
                 <td>{usuario.agencia.cidade}</td>
                 <td>
+                  {/* Editar usuário */}
                   <Button
                     variant='primary'
                     style={{ marginRight: '5px' }}
@@ -69,6 +72,7 @@ export default function TabelaUsuario(props) {
                   >
                     <Icone.Alterar />
                   </Button>
+                  {/* Excluir usuário */}
                   <Button
                     variant='danger'
                     onClick={() => {
@@ -76,6 +80,15 @@ export default function TabelaUsuario(props) {
                     }}
                   >
                     <Icone.Excluir />
+                  </Button>
+                  {/* Exibir produtos associados ao usuário */}
+                  <Button
+                    variant='success'
+                    onClick={() => {
+                      navigate('/');
+                    }}
+                  >
+                    <Icone.ProdutosDoUsuario />
                   </Button>
                 </td>
               </tr>
