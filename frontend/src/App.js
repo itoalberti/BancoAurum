@@ -7,6 +7,8 @@ import TelaCadastroUsuario from './Telas/TelaCadastroUsuario';
 import TelaCadatroProduto from './Telas/TelaCadastroProduto';
 import Tela404 from './Telas/Tela404';
 import TabelaProdutosPorUsuario from './Tabelas/___TabelaProdutosPorUsuario';
+import FormCadProduto from './Telas/TelaContratarProduto';
+import TelaContratarProduto from './Telas/TelaContratarProduto';
 
 export const ContextoUsuario = createContext('');
 
@@ -35,6 +37,7 @@ function App() {
               <Route path='/agencia' element={<TelaCadastroAgencia />} />
               <Route path='/usuario' element={<TelaCadastroUsuario />} />
               <Route path='/produto' element={<TelaCadatroProduto />} />
+              {/* <Route path='/contratarproduto' element={<TelaContratarProduto />} /> */}
               <Route path='/produtosporusuario' element={<TabelaProdutosPorUsuario />} />
               <Route path='*' element={<Tela404 />} />
             </Routes>

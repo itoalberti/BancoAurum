@@ -35,37 +35,41 @@ export default function FormCadUsuario(props) {
 
   // Retorna o formulário de cadastro de usuário e seus atributos para ser preenchido
   return (
-    <Form noValidate validated={!validado && !validaSenhaConfirmada} onSubmit={manipularSubmissao}>
+    <Form noValidate validated={!validado} onSubmit={manipularSubmissao}>
       <Row className='mb-3'>
         {/* Código do Usuário */}
-        <Form.Group as={Col} md='1'>
-          <Form.Label>Código</Form.Label>
-          <Form.Control disabled type='number' placeholder='0' value={usuario.codigo} id='codigo' name='codigo' onChange={manipularMudanca} />
-        </Form.Group>
+        <Col xs='auto'>
+          <Form.Group style={{ width: '50px' }}>
+            <Form.Label>Código</Form.Label>
+            <Form.Control disabled type='number' placeholder='0' value={usuario.codigo} id='codigo' name='codigo' onChange={manipularMudanca} />
+          </Form.Group>
+        </Col>
       </Row>
       <Row className='mb-3'>
         {/* Tipo do Usuário */}
-        <Form.Group as={Col} md='2'>
-          <Form.Label>Tipo</Form.Label>
-          <Form.Select required value={usuario.tipo} id='tipo' name='tipo' onChange={manipularMudanca}>
-            <option key={0} value={''}>
-              Selecione o tipo
-            </option>
-            <option disabled style={{ backgroundColor: '#d3d3d3', color: 'white' }} key={1} value={'Administrador'}>
-              Administrador
-            </option>
-            <option key={2} value={'Cliente'}>
-              Cliente
-            </option>
-            <option key={3} value={'Funcionário'}>
-              Funcionário
-            </option>
-            <option key={4} value={'Gerente'}>
-              Gerente
-            </option>
-          </Form.Select>
-          <Form.Control.Feedback type='invalid'>Por favor, informe o tipo!</Form.Control.Feedback>
-        </Form.Group>
+        <Col xs='auto'>
+          <Form.Group style={{ width: '200px' }}>
+            <Form.Label>Tipo</Form.Label>
+            <Form.Select required value={usuario.tipo} id='tipo' name='tipo' onChange={manipularMudanca}>
+              <option key={0} value={''}>
+                Selecione o tipo
+              </option>
+              <option disabled style={{ backgroundColor: '#d3d3d3', color: 'white' }} key={1} value={'Administrador'}>
+                Administrador
+              </option>
+              <option key={2} value={'Cliente'}>
+                Cliente
+              </option>
+              <option key={3} value={'Funcionário'}>
+                Funcionário
+              </option>
+              <option key={4} value={'Gerente'}>
+                Gerente
+              </option>
+            </Form.Select>
+            <Form.Control.Feedback type='invalid'>Por favor, informe o tipo!</Form.Control.Feedback>
+          </Form.Group>
+        </Col>
       </Row>
       {!props.atualizando && (
         <Row className='mb-3'>
@@ -109,7 +113,7 @@ export default function FormCadUsuario(props) {
           </Col>
           {/* CPF do Usuário */}
           <Col xs='auto'>
-            <Form.Group style={{ width: '135px' }}>
+            <Form.Group style={{ width: '160px' }}>
               <Form.Label>CPF</Form.Label>
               <ReactInputMask mask='999.999.999-99' placeholder='___.___.___-__' value={usuario.cpf} onChange={manipularMudanca}>
                 {(inputProps) => <Form.Control {...inputProps} required type='text' name='cpf' id='cpf' />}
@@ -120,7 +124,7 @@ export default function FormCadUsuario(props) {
           </Col>
           {/* RG do Usuário */}
           <Col xs='auto'>
-            <Form.Group style={{ width: '120px' }}>
+            <Form.Group style={{ width: '140px' }}>
               <Form.Label>RG</Form.Label>
               <ReactInputMask mask='99.999.999-9' placeholder='__.___.___-_' value={usuario.rg} onChange={manipularMudanca}>
                 {(inputProps) => <Form.Control {...inputProps} required type='text' name='rg' id='rg' />}
@@ -134,7 +138,7 @@ export default function FormCadUsuario(props) {
       <Row className='mb-3'>
         {/* Telefone do Usuário */}
         <Col xs='auto'>
-          <Form.Group>
+          <Form.Group style={{ width: '165px' }}>
             <Form.Label>Telefone</Form.Label>
             <ReactInputMask mask='(99) 99999-9999' placeholder='(__) _____-____' value={usuario.telefone} onChange={manipularMudanca}>
               {(inputProps) => <Form.Control {...inputProps} required type='text' name='telefone' id='telefone' />}
@@ -175,7 +179,7 @@ export default function FormCadUsuario(props) {
       <Row className='mb-3'>
         {/* CEP do Usuário */}
         <Col xs='auto'>
-          <Form.Group style={{ width: '105px' }}>
+          <Form.Group style={{ width: '125px' }}>
             <Form.Label>CEP</Form.Label>
             <ReactInputMask mask='99999-999' placeholder='_____-___' value={usuario.cep} onChange={manipularMudanca}>
               {(inputProps) => <Form.Control {...inputProps} required type='text' name='cep' id='cep' />}
@@ -262,12 +266,25 @@ export default function FormCadUsuario(props) {
         <Col xs='auto'>
           <Form.Group>
             <Form.Label>Confirmar Senha</Form.Label>
-            <Form.Control required placeholder='Confirmar Senha' type='password' value={senha_confirmada} id='senha_confirmada' name='senha_confirmada' onChange={manipularMudanca} isInvalid={!validaSenhaConfirmada} />
+            <Form.Control
+              required
+              placeholder='Confirme a senha'
+              type='password'
+              onChange={(event) => setSenhaConfirmada(event.target.value)}
+              isInvalid={senha_confirmada !== '' && senha_confirmada !== usuario.senha}
+              isValid={senha_confirmada !== '' && senha_confirmada === usuario.senha}
+            />
             {senha_confirmada === '' ? (
               <Form.Control.Feedback type='invalid'>Por favor, informe novamente a senha!</Form.Control.Feedback>
             ) : (
               senha_confirmada !== usuario.senha && <Form.Control.Feedback type='invalid'>As senhas não conferem!</Form.Control.Feedback>
             )}
+            {/* <Form.Control required placeholder='Confirmar Senha' type='password' value={senha_confirmada} id='senha_confirmada' name='senha_confirmada' onChange={manipularMudanca} isInvalid={!validaSenhaConfirmada} /> */}
+            {/* {senha_confirmada === '' ? ( */}
+            {/* <Form.Control.Feedback type='invalid'>Por favor, informe novamente a senha!</Form.Control.Feedback> */}
+            {/*  ) : ( */}
+            {/* senha_confirmada !== usuario.senha && <Form.Control.Feedback type='invalid'>As senhas não conferem!</Form.Control.Feedback> */}
+            {/* )} */}
           </Form.Group>
         </Col>
       </Row>
