@@ -1,12 +1,11 @@
 import { Button, Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Icone from '../Templates/Icones';
-import { useNavigate } from 'react-router-dom';
 
 export default function TabelaUsuario(props) {
   // Inicializa o estado de mostrar a senha
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  let navigate = useNavigate();
 
   // Altere o estado quando o botão for clicado
   const mudarMostrarSenha = (codigo) => {
@@ -16,25 +15,25 @@ export default function TabelaUsuario(props) {
   return (
     <div>
       {/* Cria tabela com a lista de usuários com os botões para alterar e excluir um usuário */}
-      <Table striped bordered hover style={{ fontSize: '13px' }}>
+      <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Cód.</th>
+            <th>Código</th>
             <th>Tipo</th>
             <th>Nome</th>
             <th>CPF</th>
             <th>RG</th>
             <th>Gênero</th>
             <th>Telefone</th>
-            <th>Data de Nasc.</th>
+            <th>Data de Nascimento</th>
             <th>CEP</th>
             <th>Endereço</th>
             <th>Cidade</th>
             <th>UF</th>
             <th>E-mail</th>
             <th>Senha</th>
-            <th>N° Ag.</th>
-            <th>Cidade Ag.</th>
+            <th>N° da Agência</th>
+            <th>Cidade da Agência</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -57,13 +56,20 @@ export default function TabelaUsuario(props) {
                 <td>{usuario.email}</td>
                 <td>
                   {mostrarSenha[usuario.codigo] ? usuario.senha : '••••••••'}
-                  <button onClick={() => mudarMostrarSenha(usuario.codigo)}>{mostrarSenha[usuario.codigo] ? <Icone.SenhaOculta /> : <Icone.SenhaVisivel />}</button>
+                  <Button variant='secondary' onClick={() => mudarMostrarSenha(usuario.codigo)}>
+                    {mostrarSenha[usuario.codigo] ? <Icone.SenhaOculta /> : <Icone.SenhaVisivel />}
+                  </Button>
                 </td>
                 <td>{usuario.agencia.numero}</td>
                 <td>{usuario.agencia.cidade}</td>
                 <td>
-                  {/* Editar usuário */}
+                  <Link to={{ pathname: `/usuario/${usuario.codigo}`, state: { usuario } }}>
+                    <Button title='Listar Produtos' variant='info' style={{ marginRight: '5px' }}>
+                      <Icone.Produtos />
+                    </Button>
+                  </Link>
                   <Button
+                    title='Alterar'
                     variant='primary'
                     style={{ marginRight: '5px' }}
                     onClick={() => {
@@ -72,23 +78,14 @@ export default function TabelaUsuario(props) {
                   >
                     <Icone.Alterar />
                   </Button>
-                  {/* Excluir usuário */}
                   <Button
+                    title='Excluir'
                     variant='danger'
                     onClick={() => {
                       if (window.confirm('Deseja realmente excluir o usuário ' + usuario.nome + '?')) props.excluirUsuario(usuario);
                     }}
                   >
                     <Icone.Excluir />
-                  </Button>
-                  {/* Exibir produtos associados ao usuário */}
-                  <Button
-                    variant='success'
-                    onClick={() => {
-                      navigate('/');
-                    }}
-                  >
-                    <Icone.ProdutosDoUsuario />
                   </Button>
                 </td>
               </tr>
@@ -99,3 +96,107 @@ export default function TabelaUsuario(props) {
     </div>
   );
 }
+
+// ....................................BACKUP...............................................
+
+// import { Button, Table } from 'react-bootstrap';
+// import { useState } from 'react';
+// import Icone from '../Templates/Icones';
+// import { useNavigate } from 'react-router-dom';
+
+// export default function TabelaUsuario(props) {
+//   // Inicializa o estado de mostrar a senha
+//   const [mostrarSenha, setMostrarSenha] = useState(false);
+//   let navigate = useNavigate();
+
+//   // Altere o estado quando o botão for clicado
+//   const mudarMostrarSenha = (codigo) => {
+//     setMostrarSenha({ ...mostrarSenha, [codigo]: !mostrarSenha[codigo] });
+//   };
+
+//   return (
+//     <div>
+//       {/* Cria tabela com a lista de usuários com os botões para alterar e excluir um usuário */}
+//       <Table striped bordered hover style={{ fontSize: '13px' }}>
+//         <thead>
+//           <tr>
+//             <th>Cód.</th>
+//             <th>Tipo</th>
+//             <th>Nome</th>
+//             <th>CPF</th>
+//             <th>RG</th>
+//             <th>Gênero</th>
+//             <th>Telefone</th>
+//             <th>Data de Nasc.</th>
+//             <th>CEP</th>
+//             <th>Endereço</th>
+//             <th>Cidade</th>
+//             <th>UF</th>
+//             <th>E-mail</th>
+//             <th>Senha</th>
+//             <th>N° Ag.</th>
+//             <th>Cidade Ag.</th>
+//             <th>Ações</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {props.listaUsuarios?.map((usuario) => {
+//             return (
+//               <tr key={usuario.codigo}>
+//                 <td>{usuario.codigo}</td>
+//                 <td>{usuario.tipo}</td>
+//                 <td>{usuario.nome}</td>
+//                 <td>{usuario.cpf}</td>
+//                 <td>{usuario.rg}</td>
+//                 <td>{usuario.genero}</td>
+//                 <td>{usuario.telefone}</td>
+//                 <td>{usuario.data_nascimento.split('-').reverse().join('/')}</td>
+//                 <td>{usuario.cep}</td>
+//                 <td>{usuario.endereco}</td>
+//                 <td>{usuario.cidade}</td>
+//                 <td>{usuario.uf}</td>
+//                 <td>{usuario.email}</td>
+//                 <td>
+//                   {mostrarSenha[usuario.codigo] ? usuario.senha : '••••••••'}
+//                   <button onClick={() => mudarMostrarSenha(usuario.codigo)}>{mostrarSenha[usuario.codigo] ? <Icone.SenhaOculta /> : <Icone.SenhaVisivel />}</button>
+//                 </td>
+//                 <td>{usuario.agencia.numero}</td>
+//                 <td>{usuario.agencia.cidade}</td>
+//                 <td>
+//                   {/* Editar usuário */}
+//                   <Button
+//                     variant='primary'
+//                     style={{ marginRight: '5px' }}
+//                     onClick={() => {
+//                       props.alterarUsuario(usuario);
+//                     }}
+//                   >
+//                     <Icone.Alterar />
+//                   </Button>
+//                   {/* Excluir usuário */}
+//                   <Button
+//                     variant='danger'
+//                     onClick={() => {
+//                       if (window.confirm('Deseja realmente excluir o usuário ' + usuario.nome + '?')) props.excluirUsuario(usuario);
+//                     }}
+//                   >
+//                     <Icone.Excluir />
+//                   </Button>
+//                   {/* Exibir produtos associados ao usuário */}
+//                   <Button
+//                     variant='success'
+//                     onClick={() => {
+//                       navigate('/');
+//                     }}
+//                   >
+//                     <Icone.ProdutosDoUsuario />
+//                   </Button>
+//                 </td>
+//               </tr>
+//             );
+//           })}
+//         </tbody>
+//       </Table>
+//     </div>
+//   );
+// }
