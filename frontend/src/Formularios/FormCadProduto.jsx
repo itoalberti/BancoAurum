@@ -30,42 +30,49 @@ export default function FormCadProduto(props) {
     <Form noValidate validated={!validado} onSubmit={manipularSubmissao}>
       <Row className='mb-3'>
         {/* Código do Produto */}
-        <Form.Group as={Col} md='1'>
-          <Form.Label>Código</Form.Label>
-          <Form.Control disabled type='number' placeholder='0' value={produto.codigo} name='codigo' onChange={manipularMudanca} />
-        </Form.Group>
+        <Col xs='auto' style={{ width: '100px' }}>
+          <Form.Group>
+            <Form.Label>Código</Form.Label>
+            <Form.Control disabled type='number' placeholder='0' value={produto.codigo} name='codigo' onChange={manipularMudanca} />
+          </Form.Group>
+        </Col>
       </Row>
       <Row className='mb-3'>
         {/* Tipo do Produto */}
-        <Form.Group as={Col} md='2'>
-          <Form.Label>Tipo</Form.Label>
-          <Form.Select required value={produto.tipo} name='tipo' onChange={manipularMudanca}>
-            <option key={0} value={''}>
-              Selecione o tipo
-            </option>
-            <option key={1} value={'Cartão de Débito'}>
-              Cartão de Débito
-            </option>
-            <option key={2} value={'Cartão de Crédito'}>
-              Cartão de Crédito
-            </option>
-            <option key={3} value={'Seguro'}>
-              Seguro
-            </option>
-            <option key={4} value={'Empréstimo'}>
-              Empréstimo
-            </option>
-            <option key={5} value={'Financiamento'}>
-              Financiamento
-            </option>
-          </Form.Select>
-        </Form.Group>
+        <Col xs='auto' style={{ width: '200px' }}>
+          <Form.Group>
+            <Form.Label>Tipo</Form.Label>
+            <Form.Select required value={produto.tipo} name='tipo' onChange={manipularMudanca}>
+              <option key={0} value={''}>
+                Selecione o tipo
+              </option>
+              <option key={1} value={'Cartão de Débito'}>
+                Cartão de Débito
+              </option>
+              <option key={2} value={'Cartão de Crédito'}>
+                Cartão de Crédito
+              </option>
+              <option key={3} value={'Seguro'}>
+                Seguro
+              </option>
+              <option key={4} value={'Empréstimo'}>
+                Empréstimo
+              </option>
+              <option key={5} value={'Financiamento'}>
+                Financiamento
+              </option>
+            </Form.Select>
+          </Form.Group>
+        </Col>
+
         {/* Nome do Produto */}
-        <Form.Group as={Col} md='3'>
-          <Form.Label>Nome</Form.Label>
-          <Form.Control required type='text' placeholder='Nome do Produto' value={produto.nome} name='nome' onChange={manipularMudanca} />
-          <Form.Control.Feedback type='invalid'>Informe o nome do produto!</Form.Control.Feedback>
-        </Form.Group>
+        <Col xs='auto' style={{ width: '350px' }}>
+          <Form.Group>
+            <Form.Label>Nome</Form.Label>
+            <Form.Control required type='text' placeholder='Nome do Produto' value={produto.nome} name='nome' onChange={manipularMudanca} />
+            <Form.Control.Feedback type='invalid'>Informe o nome do produto!</Form.Control.Feedback>
+          </Form.Group>
+        </Col>
       </Row>
       {produto.tipo === 'Cartão de Crédito' && (
         <Row className='mb-3'>
